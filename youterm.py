@@ -13,6 +13,7 @@ class AsciiMapper:
     DISPLAY_MODE = {
         1: [" ", "░", "▒", "▓", "█"],  # Unicode Blocks - smooth shading
         2: [" ", ".", ":", "-", "=", "+", "*", "#", "%", "$", "@"],  # ASCII detail
+        3: [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]  # Vertical bars
     }
 
     def __init__(self, display_mode=1):
@@ -203,10 +204,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "-m", "--display-mode",
         type=int,
-        choices=[1, 2],
+        choices=[1, 2, 3],
         default=1,
-        help="1 = Smooth shading (Unicode blocks) | 2 = Classic ASCII look",
+        help="1 = Smooth Shading (Unicode Blocks) | 2 = Classic ASCII | 3 = Vertical Bars",
     )
+    parser.add_argument(
+        "-v", "--version",
+        action="version",
+        version="YouTube ASCII Player 1.0")
 
     args = parser.parse_args()
     player = YoutubeAsciiPlayer(youtube_url=args.video_url, display_mode=args.display_mode)
