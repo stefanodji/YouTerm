@@ -11,7 +11,7 @@ If god forbid, you do **NOT** work remotely, I have a solution for all of your p
 May I present you → **YouTerm!** (*Rocky theme music*)
 
 The perfect tool to look busy while actually watching YouTube.<br>
-Everyone will think you're running `terraform apply` or debugging production issues, but in reality, you're watching your favorite cat videos 🐱
+Everyone will think you're running `terraform apply` or debugging production issues, but in reality, you're watching your favorite cat videos directly from your Terminal 🐱
 
 ## 📊 Proven Statistics
 
