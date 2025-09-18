@@ -89,10 +89,16 @@ class YoutubeAsciiPlayer:
     """Main class to manage YouTube ASCII video playback."""
 
     def __init__(self, youtube_url, display_mode=1):
-        self.youtube_url = youtube_url
+        self.youtube_url = self._clean_youtube_url(youtube_url)
         self.mapper = AsciiMapper(display_mode)
         self.renderer = AsciiFrameRenderer(self.mapper)
         self.keyboard = KeyboardController()
+
+    @staticmethod
+    def _clean_youtube_url(url):
+        url = url.replace('\\', '').replace('%5C', '')
+        return url
+
 
     def get_stream_url(self):
         ydl_opts = {
