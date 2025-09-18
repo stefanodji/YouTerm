@@ -7,24 +7,6 @@ import shutil
 from pynput import keyboard
 
 
-class AsciiMapper:
-    """Maps pixel values to ASCII characters based on display mode."""
-
-    DISPLAY_MODE = {
-        1: [" ", "░", "▒", "▓", "█"],  # Unicode Blocks - smooth shading
-        2: [" ", ".", ":", "-", "=", "+", "*", "#", "%", "$", "@"],  # ASCII detail
-        3: [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]  # Vertical bars
-    }
-
-    def __init__(self, display_mode=1):
-        self.display_mode = display_mode
-        self.chars = self.DISPLAY_MODE[display_mode]
-
-    def pixel_to_char(self, value):
-        index = min(int(value) * len(self.chars) // 256, len(self.chars) - 1)
-        return self.chars[index]
-
-
 class TerminalUtils:
     """Utility functions for terminal size and clearing."""
 
@@ -67,6 +49,30 @@ class KeyboardController:
         self.listener.stop()
 
 
+class AsciiMapper:
+    """Maps pixel values to ASCII characters based on display mode."""
+
+    DISPLAY_MODE = {
+        1: [" ", "░", "▒", "▓", "█"],  # Unicode Blocks - smooth shading
+        2: [" ", ".", ":", "-", "=", "+", "*", "#", "%", "$", "@"],  # ASCII detail
+        3: [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]  # Vertical bars
+    }
+
+    def __init__(self, display_mode=1):
+        self.display_mode = display_mode
+        self.chars = self.DISPLAY_MODE[display_mode]
+        self.chars_hash_map = {i: self._build_lookup_table(i) for i in range(256)}
+
+    def _build_lookup_table(self, pixel_value):
+        """Pre-calculate all possible mappings for performance"""
+        index = pixel_value * (len(self.chars)-1) // 255
+        return self.chars[index]
+
+    def pixel_value_to_char(self, pixel_value):
+        index = max(0, min(255, int(pixel_value)))
+        return self.chars_hash_map[index]
+
+
 class AsciiFrameRenderer:
     """Converts video frames to ASCII art."""
 
@@ -80,7 +86,7 @@ class AsciiFrameRenderer:
 
         ascii_image = []
         for row in resized_frame:
-            ascii_row = "".join(self.ascii_mapper.pixel_to_char(pixel) for pixel in row)
+            ascii_row = "".join(self.ascii_mapper.pixel_value_to_char(pixel) for pixel in row)
             ascii_image.append(ascii_row)
 
         return "\n".join(ascii_image)
