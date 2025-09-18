@@ -125,9 +125,15 @@ class YoutubeAsciiPlayer:
         cap = None
         try:
             self.keyboard.start()
-            print(
-                f"Loading YouTube video... (Mode: {'Unicode Blocks' if self.mapper.display_mode == 1 else 'ASCII Characters'})"
-            )
+
+            if self.mapper.display_mode == 1:
+                current_display_mode = "Unicode Blocks"
+            elif self.mapper.display_mode == 2:
+                current_display_mode = "ASCII Characters"
+            else:
+                current_display_mode = "Vertical Bars"
+
+            print(f"Loading YouTube video... (Mode: {current_display_mode})")
             print("***   Controls: SPACE = Pause/Resume | q or ESC = Quit   ***")
 
             stream_url, fps = self.get_stream_url()
