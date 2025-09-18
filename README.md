@@ -2,7 +2,7 @@
 
 > **Warning**: May cause unexpected promotions and extreme envy from coworkers
 
-![YouTerm in Action](https://via.placeholder.com/800x400.png?text=Add+ASCII+YouTube+Screenshot+Here)
+![YouTerm in Action](assets/demo.gif)
 
 ## The Industry's Worst-Kept Secret 🤫
 
