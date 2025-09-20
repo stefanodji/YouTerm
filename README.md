@@ -26,20 +26,42 @@ Now that you know one of the biggest industry secrets, there's nothing holding y
 
 ## 🚀 Installation
 
+1. Clone the Repository
 ```bash
 # Clone the repository
 git clone https://github.com/stefanodji/youterm.git
 
 # Navigate to project
 cd youterm
+```
 
-# Create and activate virtual environment (recommended)
+2. Create and activate virtual environment (recommended)
+```bash
+# On macOS / Linux:
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install dependencies
-pip3 install -r requirements.txt
+# On Windows:
+python -m venv .venv
+.venv\Scripts\activate
 ```
+
+3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## 🛡️ OS Setup for Keyboard Input
+Some operating systems (like macOS) require additional permissions to allow apps to capture keyboard input
+- On macOS: go to **System Settings → Privacy & Security → Input Monitoring**, then enable access for your Terminal 
+- On Windows: no extra permissions are required when running from PowerShell or Command Prompt  
+  - If global key listening doesn’t work, try **Run as Administrator**
+  - Some antivirus or endpoint protection tools may block global key listeners — whitelist the script if needed
+
+
+⚠️ Without these permissions, keyboard input may not work.
+
 
 ## 📌 Supported Arguments
 
@@ -93,7 +115,8 @@ python3 youterm.py -u "URL" -m 3  # Vertical bars mode
 
 ## 📋 Requirements  
 
-- Python **3.7+**  
+- Python **3.7+**
+- Git
 - OpenCV (`opencv-python`)  
 - YouTube-DL (`yt-dlp`)  
 - Pynput (`pynput`)  
